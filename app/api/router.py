@@ -1,5 +1,5 @@
 import os
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Body
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from typing import Union
@@ -65,3 +65,38 @@ async def assistants( request: GenericAssistantRequest, _ = Depends(key_check) )
     )
     
     return ChatResponse(data=[formatted_response])
+
+@router.post("/test-rewriter")
+async def test_rewriter(
+    input_text: str = Body(..., example="Enter the text to rewrite"),
+    rewrite_instructions: str = Body(..., example="Summarize the text"),
+    file_url: str = Body(..., example="Optional file URL"),
+    file_type: str = Body(..., example="pdf"),
+    lang: str = Body(..., example="Language of the output, e.g., 'en' for English")
+):
+    """
+    Endpoint to test text rewriting directly by providing input text and instructions.
+    """
+    try:
+        from app.tools.text_rewriter.core import executor
+
+        # call Executor with the provided parameters
+        rewritten_text = executor(
+            input_text=input_text,
+            file_url=file_url,
+            file_type=file_type,
+            rewrite_instructions=rewrite_instructions,
+            lang=lang,
+            verbose=True
+        )
+
+        #return {
+        #    "status": "success",
+        #    "rewritten_text": rewritten_text
+        #}
+
+        return rewritten_text
+
+    except Exception as e:
+        logger.error(f"Error in test-rewriter endpoint: {e}")
+        raise HTTPException(status_code=500, detail=f"Error: {str(e)}")

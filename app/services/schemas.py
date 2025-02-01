@@ -154,3 +154,10 @@ class WritingFeedbackGeneratorArgs(BaseModel):
     wtr_file_url: str
     wtr_file_type: str
     lang: Optional[str] = "en"
+
+class TextRewriterArgs(BaseModel):
+    input_text: str
+    file_url: str
+    file_type: str
+    rewrite_instructions: str
+    lang: Optional[str] = "en"

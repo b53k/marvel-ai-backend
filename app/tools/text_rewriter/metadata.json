@@ -1,0 +1,30 @@
+{
+    "name": "Text Rewrite Tool",
+    "description": "A tool that rewrites text based on specific user instructions to adapt content for diverse educational needs.",
+    "inputs": [
+        {
+            "label": "Input Text",
+            "name": "input_text",
+            "type": "text",
+            "required": false
+        },
+        {
+            "label": "File URL",
+            "name": "file_url",
+            "type": "text",
+            "required": false
+        },
+        {
+            "label": "File Type",
+            "name": "file_type",
+            "type": ["csv", "pdf", "docx", "ppt", "txt"],
+            "required": false
+        }
+        {
+            "label": "Rewrite Instructions",
+            "name": "rewrite_instructions",
+            "type": "text",
+            "required": true
+        }
+    ]
+}

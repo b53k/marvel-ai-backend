@@ -69,3 +69,9 @@ class SyllabusGeneratorError(Exception):
     def __init__(self, message: str):
         self.message = message
         super().__init__(self.message)
+
+class TextRewriterError(Exception):
+    """Base class for errors related to text rewriter."""
+    def __init__(self, message: str):
+        self.message = message
+        super().__init__(self.message)
